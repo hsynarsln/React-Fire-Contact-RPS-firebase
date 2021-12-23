@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import { successNote } from './customTostify';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyD5-jKAOw9eb5NFvcZWel9-oZFxsBkHyW0',
-  authDomain: 'fire-contact-13182.firebaseapp.com',
-  databaseURL: 'https://fire-contact-13182-default-rtdb.firebaseio.com',
-  projectId: 'fire-contact-13182',
-  storageBucket: 'fire-contact-13182.appspot.com',
-  messagingSenderId: '369107778133',
-  appId: '1:369107778133:web:00349010cd723ebdc372dc'
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
 
 export const firebase = initializeApp(firebaseConfig);
@@ -67,6 +67,7 @@ export const deleteInfo = id => {
   const db = getDatabase();
 
   remove(ref(db, 'contact/' + id));
+  successNote('Successfully deleted!');
 };
 
 //!--------------------------------
