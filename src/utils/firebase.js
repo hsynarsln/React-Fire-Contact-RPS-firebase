@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { child, getDatabase, onValue, push, query, ref, remove, set, update } from 'firebase/database';
 import { useEffect, useState } from 'react';
+import { successNote } from './customTostify';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD5-jKAOw9eb5NFvcZWel9-oZFxsBkHyW0',
@@ -26,7 +27,8 @@ export const addInfo = info => {
     phoneNumber: info.phoneNumber,
     gender: info.gender
   });
-  console.log('veri eklendi');
+  successNote('Successfully added!');
+  // console.log('veri eklendi');
 };
 
 //!------------------------------
@@ -75,5 +77,5 @@ export const updateInfo = info => {
   const newUserKey = push(child(ref(db), 'contact/')).key; //! yeni bir key üretiyoruz.
   const updates = {};
   updates['contact/' + newUserKey] = info;
-  return update(ref(db), updates);
+  return update(ref(db), info);
 };
