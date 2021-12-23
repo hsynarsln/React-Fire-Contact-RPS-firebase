@@ -1,7 +1,9 @@
 import { Icon, Table } from 'semantic-ui-react';
-import { useFetch } from '../../utils/firebase';
+import { deleteInfo, useFetch } from '../../utils/firebase';
+
 const Contacts = ({ editHandler }) => {
   const { contactList, isLoading } = useFetch();
+
   return (
     <div>
       <h2 className='contact-header'>Contacts</h2>
@@ -16,6 +18,7 @@ const Contacts = ({ editHandler }) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
+          {/* //! isLoading true --> loading... , false --> contactList mevcut ise length = 0 ise Nothing found , lengt > 0 ise map ile gezerek table içerisine monte et */}
           {isLoading ? (
             <Table.Row>
               <Table.Cell colSpan={5} textAlign='center'>
@@ -35,10 +38,17 @@ const Contacts = ({ editHandler }) => {
                 <Table.Cell textAlign='center'>{item.phoneNumber}</Table.Cell>
                 <Table.Cell textAlign='center'>{item.gender}</Table.Cell>
                 <Table.Cell textAlign='center' className='delete'>
-                  <Icon name='delete' />
+                  {/* //! firebase de oluşturduğumuz fonksiyonu çağırdık ve parametre olarak id verdik */}
+                  <Icon name='delete' onClick={() => deleteInfo(item.id)} />
                 </Table.Cell>
                 <Table.Cell textAlign='center' className='edit'>
-                  <Icon name='edit' />
+                  <Icon
+                    name='edit'
+                    onClick={() =>
+                      //! update olacak değerleri gönderiyoruz.
+                      editHandler(item.id, item.username, item.phoneNumber, item.gender)
+                    }
+                  />
                 </Table.Cell>
               </Table.Row>
             ))
