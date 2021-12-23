@@ -3,19 +3,20 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Contacts from './components/contacts/Contacts';
 import FormComponent from './components/form/FormComponent';
-import { addInfo, updateInfo } from './utils/firebase';
+import { addInfo, deleteInfo } from './utils/firebase';
 
-const initialValues = { username: '', phoneNumber: '', gender: '' };
+const initialValues = { username: '', phoneNumber: '', gender: 'NO INFO' };
 
 function App() {
   const [info, setInfo] = useState(initialValues);
 
   const handleFormSubmit = () => {
-    // console.log(info);
     if (info.id) {
-      updateInfo(info);
+      deleteInfo(info.id);
+      addInfo(info);
+    } else {
+      addInfo(info);
     }
-    addInfo(info);
   };
 
   const editHandler = (id, username, phoneNumber, gender) => {
