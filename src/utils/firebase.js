@@ -57,6 +57,7 @@ export const useFetch = () => {
       setIsLoading(false);
     });
   }, []);
+  // console.log(contactList);
   return { isLoading, contactList }; //! burada table'a gönderiyoruz
 };
 
@@ -74,9 +75,30 @@ export const deleteInfo = id => {
 //*---------UPDATE DATA -----------
 //!--------------------------------
 export const updateInfo = info => {
+  console.log(info);
+  const { id, username, phoneNumber, gender } = info;
+  console.log(id);
+  console.log(username);
+  console.log(phoneNumber);
+  console.log(gender);
   const db = getDatabase();
-  const newUserKey = push(child(ref(db), 'contact/')).key; //! yeni bir key üretiyoruz.
+
+  // const infoData = {
+  //   id: info.id,
+  //   username: info.username,
+  //   phoneNumber: info.phoneNumber,
+  //   gender: info.gender
+  // };
+
+  const newUserKey = push(child(ref(db), 'contact')).key; //! yeni bir key üretiyoruz.
+
+  // console.log(newUserKey);
+
   const updates = {};
-  updates['contact/' + newUserKey] = info;
-  return update(ref(db), info);
+  updates['/contact/' + newUserKey] = info;
+
+  // console.log(updates);
+  // console.log(info);
+
+  return update(ref(db), updates);
 };
