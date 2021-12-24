@@ -9,7 +9,8 @@ const initialValues = { username: '', phoneNumber: '', gender: '' };
 
 function App() {
   const [info, setInfo] = useState(initialValues);
-  // const [isEditing, setIsEditing] = useState(false);
+  const { id, username, phoneNumber, gender } = info;
+  const [isEditing, setIsEditing] = useState(false);
   // console.log(info);
 
   const handleFormSubmit = () => {
@@ -19,7 +20,8 @@ function App() {
     // addInfo(info);
 
     if (info.id) {
-      updateInfo(info);
+      updateInfo(id, username, phoneNumber, gender);
+      setIsEditing(false);
       setInfo(initialValues);
     } else {
       addInfo(info);
@@ -28,12 +30,13 @@ function App() {
   };
 
   const editHandler = (id, username, phoneNumber, gender) => {
+    setIsEditing(true);
     setInfo({ id, username, phoneNumber, gender });
   };
 
   return (
     <div className='App'>
-      <FormComponent info={info} setInfo={setInfo} handleFormSubmit={handleFormSubmit} />
+      <FormComponent info={info} setInfo={setInfo} handleFormSubmit={handleFormSubmit} isEditing={isEditing} />
       <Contacts editHandler={editHandler} />
       <ToastContainer />
     </div>

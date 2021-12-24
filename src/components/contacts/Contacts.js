@@ -34,9 +34,9 @@ const Contacts = ({ editHandler }) => {
           ) : (
             contactList?.map((item, index) => (
               <Table.Row key={index}>
-                <Table.Cell textAlign='center'>{item.username}</Table.Cell>
+                <Table.Cell textAlign='center'>{item.username.toUpperCase()}</Table.Cell>
                 <Table.Cell textAlign='center'>{item.phoneNumber}</Table.Cell>
-                <Table.Cell textAlign='center'>{item.gender}</Table.Cell>
+                <Table.Cell textAlign='center'>{item.gender.toUpperCase()}</Table.Cell>
                 <Table.Cell textAlign='center' className='delete' onClick={() => deleteInfo(item.id)}>
                   {/* //! firebase de oluşturduğumuz fonksiyonu çağırdık ve parametre olarak id verdik */}
                   <Icon name='delete' />
